@@ -5,6 +5,8 @@ from data.duckdb import DuckConnection
 from ai_controller.controller_client import IAClient
 from ai_controller.agent import AppAgent
 from langchain_community.chat_models import ChatOpenAI
+from langchain.prompts import PromptTemplate
+
 load_dotenv()
 
 import litellm
@@ -21,17 +23,10 @@ if ai_client == None:
 agent = AppAgent(ai_client)
 
 
-
 @app.get("/")
 async def root():
-    resp = agent.agent.run("¿Cuál es la alergia más común?")
+    resp = agent.ask_agent("Hola soy Isaac!")
     return {"message": resp}
 
-
-
-#Inicializamos la conexión con la base de datos
-#db_con = DuckConnection()
-#db_con.load_csv()
-#db_con.read()
 
 

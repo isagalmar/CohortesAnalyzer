@@ -15,3 +15,6 @@ class AppAgent():
                 agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
                 allow_dangerous_code=True
             )
+    
+    def ask_agent(self, msg):
+        res = self.agent.invoke(msg)
