@@ -1,5 +1,5 @@
 openapi
-fastapi
+fastapi[standard]
 langchain[all]
 duckdb
 langchain_experimental

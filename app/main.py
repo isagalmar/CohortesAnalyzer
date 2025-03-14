@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from endpoints import data_q
-from data.duckdb import DuckConnection
+from db.duckdb import DuckConnection
 from ai_controller.controller_client import IAClient
 from ai_controller.agent import AppAgent
 from langchain_community.chat_models import ChatOpenAI
@@ -20,12 +20,14 @@ ai_client = IAClient()
 if ai_client == None:
     print("Error creando el cliente!")
 
+prompt = PromptTemplate(input_variables=["nombre"], template="Hola soy {nombre}!")
+chain = prompt | ai_client.chat
+
 agent = AppAgent(ai_client)
 
-
 @app.get("/")
-async def root():
-    resp = agent.ask_agent("Hola soy Isaac!")
+def root():
+    resp = agent.ask_agent("¿Que porcentaje de personas tienen asma y son de sevilla?")
     return {"message": resp}
 
 
