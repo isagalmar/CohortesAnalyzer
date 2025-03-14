@@ -12,6 +12,6 @@ class AppAgent():
                 ia_client.chat,
                 "./data/cohorte_alegias.csv",
                 verbose=True,
-                agent_type=AgentType.OPENAI_FUNCTIONS,
+                agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
                 allow_dangerous_code=True
             )

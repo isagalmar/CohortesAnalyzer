@@ -1,6 +1,6 @@
 import os
 import openai
-from langchain_community.chat_models import ChatLiteLLM
+from langchain_community.chat_models import ChatOpenAI
 import litellm
 
 class IAClientMeta(type):
@@ -14,28 +14,18 @@ class IAClientMeta(type):
     
 
 class IAClient(metaclass=IAClientMeta):
-    client = None
     chat = None
 
     def __init__(self):
-        self.client = self.init_client()
         self.chat = self.create_chat()
-
-    def init_client(self):
-        if(self.client != None):
-            print("Cliente IA ya inicializado!")
-            return None
-
-        secret_key = os.getenv("API_KEY")
-        base_url = os.getenv("BASE_URL")
-
-        return openai.OpenAI(api_key=secret_key, base_url=base_url)
 
     def create_chat(self):
         if(self.chat != None):
             print("Chat IA ya inicializado!")
             return None
         
+        secret_key = os.getenv("API_KEY")
+        base_url = os.getenv("BASE_URL")
         model = os.getenv("MODEL")
-        return ChatLiteLLM(client=self.client,model=model)
+        return ChatOpenAI(api_key=secret_key, base_url=base_url, model=model)
         

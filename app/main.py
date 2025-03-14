@@ -7,28 +7,25 @@ from ai_controller.agent import AppAgent
 from langchain_community.chat_models import ChatOpenAI
 load_dotenv()
 
+import litellm
 app = FastAPI()
 
 app.include_router(data_q.router)
 
-#ai_client = IAClient()
-#if ai_client == None:
-#    print("Error creando el cliente!")
+litellm.drop_params = True
 
-#agent = AppAgent(ai_client)
-import openai
+ai_client = IAClient()
+if ai_client == None:
+    print("Error creando el cliente!")
 
-chat = ChatOpenAI(api_key="sk-XBSp_9YujYTb8ZKUFxleNQ", base_url="https://litellm.dccp.pbu.dedalus.com", model="bedrock/anthropic.claude-3-5-sonnet-20240620-v1:0")
-response = chat.invoke("Hola")
-# Realizar una consulta
-#response = chat_llm.predict("this is a test request, write a short poem")
+agent = AppAgent(ai_client)
 
-# Mostrar la respuesta
-print(response)
+
 
 @app.get("/")
 async def root():
-    return {"message": "Test Endpoind!"}
+    resp = agent.agent.run("¿Cuál es la alergia más común?")
+    return {"message": resp}
 
 
 
