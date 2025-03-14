@@ -1,1 +1,6 @@
 data
+.venv
+.env
+requirements
+*.duckdb
+*__pycache__

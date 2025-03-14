@@ -1,0 +1,7 @@
+openapi
+fastapi
+langchain[all]
+duckdb
+langchain_experimental
+pandas
+tabulate
