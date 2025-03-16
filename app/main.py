@@ -27,7 +27,7 @@ agent = AppAgent(ai_client)
 
 @app.get("/")
 def root():
-    resp = agent.ask_agent("¿Que porcentaje de personas tienen asma y son de sevilla?")
+    resp = agent.ask_agent("¿Cuáles son las alergias del paciente 22?")
     return {"message": resp}
 
 

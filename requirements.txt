@@ -5,3 +5,4 @@ duckdb
 langchain_experimental
 pandas
 tabulate
+requests
