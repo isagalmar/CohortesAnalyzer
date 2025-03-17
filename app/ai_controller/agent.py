@@ -20,7 +20,8 @@ class AppAgent():
         self.agent_executor= AgentExecutor.from_agent_and_tools(
                         agent=self.agent,
                         tools=tools,
-                        verbose=True
+                        verbose=True,
+                        handle_parsing_errors=True
                         )
         
     

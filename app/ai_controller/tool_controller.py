@@ -18,8 +18,10 @@ def getAllPacientes():
 @tool
 def getPacientePorProvincia(provincia: str):
     """Devuelve los pacientes de una povincia"""
+    
+    provincia_new = provincia[:len(provincia)-2]
 
-    req = requests.get(f"http://127.0.0.1:{port}/pacientes/getPacientePortProvincia/{provincia}")
+    req = requests.get(f"http://127.0.0.1:{port}/pacientes/getPacientePorProvincia/{provincia_new}")
     if req.status_code != 200:
         print("Error al pedir un dato a DataPoint")
         return req.status_code
