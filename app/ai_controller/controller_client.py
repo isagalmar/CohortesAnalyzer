@@ -25,5 +25,5 @@ class IAClient(metaclass=IAClientMeta):
         secret_key = os.getenv("API_KEY")
         base_url = os.getenv("BASE_URL")
         model = os.getenv("MODEL")
-        return ChatOpenAI(api_key=secret_key, base_url=base_url, model=model)
+        return ChatOpenAI(api_key=secret_key, base_url=base_url, model=model, temperature=0)
         

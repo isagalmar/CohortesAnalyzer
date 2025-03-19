@@ -4,3 +4,5 @@ data
 requirements
 *.duckdb
 *__pycache__
+docker-compose.yaml
+Dockerfile

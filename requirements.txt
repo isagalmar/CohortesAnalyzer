@@ -1,8 +1,8 @@
 openapi
 fastapi[standard]
 langchain[all]
-duckdb
 langchain_experimental
 pandas
 tabulate
 requests
+litellm

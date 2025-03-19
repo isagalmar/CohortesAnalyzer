@@ -1,21 +1,46 @@
-from dotenv import load_dotenv
 from fastapi import FastAPI
-from ai_controller.controller_client import IAClient
-from ai_controller.agent import AppAgent
+from fastapi.middleware.cors import CORSMiddleware
+
 from typing import Dict, Any
 
-load_dotenv()
-
 import litellm
+
+from ai_controller.controller_client import IAClient
+from ai_controller.agent import AppAgent
+from ai_controller.chain import RunChain
+
+
+
 app = FastAPI()
 
+
+#Configuración CORS para datapoint
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+#Configuración CORS para datapoint
+
+
+
 litellm.drop_params = True
+
+
 
 ai_client = IAClient()
 if ai_client == None:
     print("Error creando el cliente!")
 
 agent = AppAgent(ai_client)
+
+runChain = RunChain(agent=agent, ai_client=ai_client)
+
+
 
 @app.get("/")
 def root():
@@ -24,9 +49,7 @@ def root():
 @app.post("/ask_ia")
 def ask_ia(payload: Dict[Any, Any]):
     msg = payload["message"]
-
-    resp = agent.ask_agent(msg)
-
-    return resp
+    resp = runChain.runChain(msg=msg)
+    return {"response": resp}
 
 
